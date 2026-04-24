@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sabor Mío Empanizador. Descubre el sabor premium, extra crunchy y de mayor rendimiento para tus platillos.">
+    <meta name="theme-color" content="#D14B1A">
+    
+    <title>Sabor Mío | Empanizador Premium</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* PALETA DE COLORES SABOR MÍO (Sin cafés) */
+            --sm-green-dark: #5B6135;
+            --sm-orange: #D14B1A;
+            --sm-red: #901913;
+            --sm-gold: #AF7F00;
+            --sm-yellow: #FFCF00;
+            --sm-neutral: #D6D1C8;
+            
+            --dark: #1C1C1C;  
+            --white: #FFFFFF;
+            --light-bg: #FDFDFD; 
+            
+            /* Efectos cristal */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 30px 60px rgba(209, 75, 26, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .font-title { font-family: 'EB Garamond', serif; }
+
+        /* =========================================================
+           NAVEGACIÓN EFECTO CRISTAL
+           ========================================================= */
+        nav {
+            position: fixed; 
+            width: 90%; 
+            max-width: 1800px;
+            top: 20px; 
+            left: 0; right: 0; 
+            margin: 0 auto;
+            padding: 15px 30px; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); 
+            border-radius: 100px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            transition: transform 0.4s ease, background-color 0.4s ease;
+        }
+        .logo { text-decoration: none; display: flex; align-items: center; z-index: 1002; }
+        .nav-logo { height: 45px; width: auto; object-fit: contain; mix-blend-mode: multiply; }
+        
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.85rem; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px;}
+        .nav-links a:hover { color: var(--sm-orange); }
+        
+        .nav-cta { background: var(--sm-red); color: var(--white) !important; padding: 10px 24px !important; border-radius: 50px; transition: background-color 0.4s, transform 0.4s;}
+        .nav-cta:hover { background: var(--sm-orange); transform: translateY(-2px); }
+
+        /* REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } 
+        .delay-2 { transition-delay: 0.2s; }
+
+        /* BOTONES GLOBALES */
+        .btn-primary { background: var(--sm-orange); color: var(--white); padding: 18px 40px; border-radius: 50px; font-weight: 700; text-decoration: none; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; display: inline-block; text-align: center; border: none; cursor: pointer; letter-spacing: 1px;}
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(209, 75, 26, 0.3); background: var(--sm-red); }
+
+        /* =========================================
+           HERO SABOR MÍO (Texto limpio, sin caja que tape y MÁS ARRIBA)
+           ========================================= */
+        .hero-sabor-mio {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start; /* Mantiene el texto arriba */
+            justify-content: center;
+            background-image: url('sabormiofondo.jpg'); 
+            background-size: cover;
+            background-position: center bottom; /* Ancla la imagen abajo para que la comida no se corte */
+            background-repeat: no-repeat;
+            /* SE REDUJO EL PADDING SUPERIOR PARA SUBIR EL TEXTO */
+            padding: 105px 5% 60px; 
+            overflow: hidden;
+        }
+
+        /* Contenedor de texto transparente con un halo sutil */
+        .hero-text-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 850px;
+            margin-top: 0; /* Quitamos el margen extra para que suba más */
+            /* Un difuminado radial invisible que solo ayuda al contraste del texto, sin crear bordes */
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0) 70%);
+            padding: 20px 50px;
+        }
+        
+        .hero-title {
+            font-size: clamp(3.5rem, 6vw, 6rem); 
+            font-weight: 700;
+            color: var(--sm-green-dark); 
+            line-height: 1.05;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 15px rgba(255,255,255,0.8); 
+        }
+        .hero-title span { color: var(--sm-orange); font-style: italic; }
+
+        .hero-desc {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+        }
+
+        /* =========================================
+           SECCIÓN ATRIBUTOS (Grid Dios)
+           ========================================= */
+        .seccion-atributos { padding: 120px 5%; background-color: var(--white); position: relative; z-index: 2; }
+        .section-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; color: var(--dark); margin-bottom: 20px; line-height: 1.1; text-align: center; text-transform: uppercase;}
+        .section-title span { color: var(--sm-orange); font-style: italic;}
+        .section-desc { font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto 60px; line-height: 1.6; text-align: center; }
+
+        .ventas-grid-dios { 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; 
+            max-width: 1400px; margin: 0 auto; align-items: stretch;
+        }
+        
+        .venta-dios-card {
+            background: var(--white); border: 1px solid #EAEAEA; border-radius: 30px; 
+            padding: 40px 30px; display: flex; flex-direction: column; text-align: center;
+            transition: all 0.4s ease; box-shadow: var(--shadow-soft); 
+        }
+        .venta-dios-card:hover { transform: translateY(-8px); border-color: var(--sm-yellow); box-shadow: var(--shadow-hover); }
+
+        .icon-wrapper {
+            width: 80px; height: 80px; background: #FFF9F5; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 20px auto; border: 2px solid var(--sm-gold);
+            font-size: 2rem; color: var(--sm-orange);
+        }
+
+        .venta-dios-card h3 { font-size: 1.8rem; color: var(--sm-green-dark); margin-bottom: 15px; }
+        .venta-dios-card p { color: #666; font-size: 0.95rem; line-height: 1.6; }
+
+        /* =========================================
+           SECCIÓN PRODUCTO (Qué es)
+           ========================================= */
+        .que-es { 
+            background: var(--dark); padding: 150px 5%; position: relative; overflow: hidden;
+        }
+        .que-es::before {
+            content: ''; position: absolute; top: -50%; right: -20%; width: 1000px; height: 1000px;
+            background: radial-gradient(circle, rgba(209, 75, 26, 0.15) 0%, transparent 70%); z-index: 0;
+        }
+
+        .que-es-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1300px; margin: 0 auto; align-items: center; position: relative; z-index: 1;}
+        
+        .narrativa-box .section-title { color: var(--white); text-align: left; margin-bottom: 15px;}
+        .narrativa-box p { font-size: 1.15rem; color: #CCC; line-height: 1.8; margin-bottom: 30px;}
+        
+        .stats-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .bento-mini {
+            background: #252525; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
+            padding: 30px 20px; text-align: center; transition: all 0.3s;
+        }
+        .bento-mini:hover { border-color: var(--sm-orange); background: #1C1C1C; transform: translateY(-5px); }
+        .bento-mini h4 { color: var(--sm-yellow); font-size: 1.5rem; margin-bottom: 10px; }
+        .bento-mini p { color: #AAA; font-size: 0.85rem; text-transform: uppercase; font-weight: 700;}
+
+        .product-highlight-img {
+            width: 100%; max-width: 450px; border-radius: 20px; transform: rotate(-3deg);
+            transition: transform 0.5s ease; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.5));
+        }
+        .product-highlight-img:hover { transform: rotate(0deg) scale(1.05); }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer { background: var(--dark); padding: 80px 5% 40px; color: var(--white); border-top: 5px solid var(--sm-orange);}
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1400px; margin: 0 auto; }
+        .footer-col h4 { color: var(--sm-yellow); font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; font-family: 'EB Garamond', serif;}
+        .footer-col a { color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; }
+        .footer-col a:hover { color: var(--sm-orange); transform: translateX(5px); }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; padding-top: 30px; color: #666; font-size: 0.8rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) { .ventas-grid-dios { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 992px) {
+            .hero-sabor-mio { padding: 110px 5% 40px; background-position: center center;}
+            .hero-text-container { padding: 10px; }
+            .que-es-grid { grid-template-columns: 1fr; text-align: center;}
+            .narrativa-box .section-title { text-align: center; }
+            .product-highlight-img { margin: 0 auto; display: block;}
+            .nav-links { display: none; } 
+        }
+        @media (max-width: 768px) { .ventas-grid-dios { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    
+    <nav id="navbar">
+        <a href="#inicio" class="logo">
+            <img src="LOGO - SABOR MÍO.png" alt="Sabor Mío Logo" class="nav-logo">
+        </a>
+        <div class="nav-links" id="nav-links">
+            <a href="#beneficios" class="nav-item">Beneficios</a>
+            <a href="#producto" class="nav-item">El Producto</a>
+            <a href="#contacto" class="nav-cta nav-item">Ser Distribuidor</a>
+        </div>
+    </nav>
+
+    <section class="hero-sabor-mio" id="inicio">
+        <div class="hero-text-container reveal">
+            <h1 class="hero-title">Sabor Mío<br><span>Empanizador</span></h1>
+            <p class="hero-desc">Extra crunchy, rinde más y conserva la frescura. Descubre el empanizador que transformará tus platillos.</p>
+            <a href="#producto" class="btn-primary">Descubre el sabor único</a>
+        </div>
+    </section>
+
+    <section class="seccion-atributos" id="beneficios">
+        <div class="reveal">
+            <h2 class="section-title">¿POR QUÉ ELEGIR <br><span>SABOR MÍO?</span></h2>
+            <p class="section-desc">Desarrollado con altos estándares industriales para garantizar la mejor textura y sabor en cada bocado.</p>
+        </div>
+        
+        <div class="ventas-grid-dios reveal delay-1">
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">✨</div>
+                <h3>Sabor Premium</h3>
+                <p>Una mezcla exclusiva que realza el sabor de tus carnes, aves y mariscos sin enmascararlos.</p>
+            </div>
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">🔥</div>
+                <h3>Extra Crunchy</h3>
+                <p>Logra un dorado perfecto y una textura extra crujiente que se mantiene por mucho más tiempo.</p>
+            </div>
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">📈</div>
+                <h3>Rinde Más!</h3>
+                <p>Nuestra fórmula está diseñada para adherirse perfectamente, optimizando el uso del producto al máximo.</p>
+            </div>
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">🥚</div>
+                <h3>Cero Complicaciones</h3>
+                <p>Olvídate de pasos extra. Nuestro empanizador <strong>no requiere huevo ni condimentos</strong> adicionales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="que-es" id="producto">
+        <div class="que-es-grid">
+            <div class="narrativa-box reveal">
+                <h2 class="section-title">NUESTRO ESTRELLA: <br><span>BBQ BARBECUE</span></h2>
+                <p>Presentamos nuestra bolsa resellable de 170g. Diseñada para conservar la frescura y garantizar que cada empanizado sea tan crujiente como el primero.</p>
+                
+                <div class="stats-bento">
+                    <div class="bento-mini">
+                        <h4>170 G</h4>
+                        <p>Contenido Neto</p>
+                    </div>
+                    <div class="bento-mini">
+                        <h4>Zip</h4>
+                        <p>Bolsa Resellable</p>
+                    </div>
+                </div>
+                <br>
+                <a href="#contacto" class="btn-primary" style="margin-top: 20px;">Hacer Pedido Industrial</a>
+            </div>
+            
+            <div class="reveal delay-1" style="text-align: center;">
+                <img src="SABOR-MÍO-DOS.jpg" alt="Empaque Sabor Mío BBQ" class="product-highlight-img">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid reveal">
+            <div class="footer-col">
+                <img src="SM KIT.jpg" alt="Sabor Mío" style="height: 60px; filter: brightness(0) invert(1); margin-bottom: 20px; mix-blend-mode: screen;">
+                <p style="color: #888; font-size: 0.9rem; line-height: 1.6;">Orgullosamente maquilado por<br><strong>Mango Business Center</strong><br>Morelia, Michoacán</p>
+            </div>
+            <div class="footer-col">
+                <h4>Productos</h4>
+                <a href="#">Línea BBQ Barbecue</a>
+                <a href="#">Línea Clásica (Próximamente)</a>
+                <a href="#">Presentaciones Industriales</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto Comercial</h4>
+                <a href="#">Ser Distribuidor</a>
+                <a href="#">Ventas Retail</a>
+                <a href="#">Atención a Restaurantes</a>
+            </div>
+        </div>
+        <div class="footer-bottom reveal delay-1">
+            © 2026 SABOR MÍO. Una marca de Mango Business Center.
+        </div>
+    </footer>
+
+    <script>
+        // Lógica de Reveal Animations 
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        
+        const revealObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Navbar Scroll Effect
+        const navbarElement = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbarElement.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbarElement.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            } else {
+                navbarElement.style.background = 'var(--glass-bg)';
+                navbarElement.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
