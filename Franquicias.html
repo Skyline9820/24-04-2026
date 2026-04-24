@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franquicias | Hot Rolls</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lexend:wght@300;400;700;900&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* COLORES OFICIALES HOT ROLLS */
+            --hr-green: #2BBF65;      
+            --hr-yellow: #FFD72E;     
+            --hr-orange: #FF511B;     
+            --hr-dark-green: #196D49; 
+            --hr-deep-green: #0C2D1E; 
+            --hr-beige: #F6EFBB;      
+            --hr-white: #FFFFFF;
+            --hr-black: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Lexend', sans-serif; 
+            background-color: var(--hr-beige); 
+            color: var(--hr-black); 
+            overflow-x: hidden; 
+        }
+
+        .big-title { 
+            font-family: 'Bebas Neue', sans-serif; 
+            text-transform: uppercase; 
+            line-height: 0.9; 
+            margin: 0; 
+            letter-spacing: 2px;
+        }
+
+        /* =========================================
+           NAVBAR
+           ========================================= */
+        .navbar {
+            position: fixed;
+            top: 25px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            width: 95%;
+            max-width: 1200px;
+            padding: 10px 30px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: var(--hr-beige);
+            border-radius: 50px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            top: 15px;
+            padding: 8px 30px;
+            background-color: var(--hr-beige); 
+            box-shadow: none; 
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem; 
+            color: var(--hr-dark-green);
+            text-decoration: none;
+            letter-spacing: 1px;
+            margin-right: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px; 
+            margin: 0 auto; 
+        }
+
+        .nav-links li a {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--hr-black);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: var(--hr-orange);
+        }
+
+        .nav-cta {
+            background-color: var(--hr-black); 
+            color: var(--hr-white);
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            background-color: var(--hr-orange);
+            color: var(--hr-white);
+        }
+
+        /* =========================================
+           CARRUSEL HERO SECTION
+           ========================================= */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            height: 100vh; 
+            overflow: hidden;
+            background-color: var(--hr-deep-green);
+        }
+
+        .carousel-track { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .carousel-slide { min-width: 100%; height: 100%; position: relative; }
+        .banner-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.4);
+            color: var(--hr-white); border: none; width: 50px; height: 50px; border-radius: 50%;
+            font-size: 1.5rem; cursor: pointer; z-index: 20; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .carousel-btn:hover { background: var(--hr-orange); transform: translateY(-50%) scale(1.1); }
+        .carousel-btn.prev { left: 2%; }
+        .carousel-btn.next { right: 2%; }
+
+        .carousel-dots { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 20; }
+        .dot { width: 15px; height: 15px; background: rgba(255, 255, 255, 0.4); border-radius: 50%; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; }
+        .dot.active { background: var(--hr-yellow); border-color: var(--hr-black); transform: scale(1.2); }
+
+        /* =========================================
+           TUTI MASCOT Y STATS
+           ========================================= */
+        .tuti-stats { position: absolute; right: 8%; top: -65px; width: 110px; z-index: 15; transform: rotate(20deg); filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5)); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .stats-bar:hover .tuti-stats { transform: translateY(-15px) rotate(5deg) scale(1.15); }
+        .tuti-walker { position: absolute; left: -50px; top: 150px; width: 180px; opacity: 0.9; transform: rotate(-10deg); z-index: 2; pointer-events: none; }
+        .tuti-footer { position: absolute; left: 50%; top: -100px; transform: translateX(-50%); width: 180px; z-index: 5; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3)); }
+
+        .stats-bar { background: var(--hr-black); color: var(--hr-white); padding: 60px 8%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; position: relative; z-index: 10; }
+        .stat-item { border-left: 5px solid var(--hr-green); padding-left: 20px; position: relative;}
+        .stat-item h3 { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; margin: 0; color: var(--hr-yellow); letter-spacing: 2px;}
+        .stat-item p { text-transform: uppercase; font-weight: 700; color: var(--hr-white); margin-top: 5px; font-size: 0.9rem;}
+
+        /* =========================================
+           VITRINA DE MENÚ
+           ========================================= */
+        .menu-section { padding: 100px 5%; background-color: var(--hr-beige); text-align: center; position: relative; }
+        .menu-header { margin-bottom: 80px; }
+        .menu-header h2 { font-size: 5.5rem; color: var(--hr-deep-green); }
+        .menu-header p.compliance { font-size: 0.75rem; font-weight: 800; color: var(--hr-dark-green); margin-top: 15px; letter-spacing: 2px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1400px; margin: 0 auto; }
+        .menu-item { display: flex; flex-direction: column; align-items: center; }
+        .menu-item img { width: 100%; max-width: 280px; object-fit: contain; margin-bottom: 25px; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); transition: transform 0.3s ease; }
+        .menu-item:hover img { transform: translateY(-10px) scale(1.05); }
+        .script-subtitle { font-family: 'Shadows Into Light', cursive; color: #888; font-size: 1.8rem; margin-bottom: 5px; line-height: 1; }
+        .item-title { font-family: 'Bebas Neue', sans-serif; color: var(--hr-black); font-size: 2.5rem; letter-spacing: 1px; margin-bottom: 15px; line-height: 1; }
+        .item-desc { font-family: 'Lexend', sans-serif; font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 30px; flex-grow: 1; }
+        .item-btn { background-color: var(--hr-deep-green); color: var(--hr-white); font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; padding: 12px 35px; border-radius: 50px; text-decoration: none; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .item-btn:hover { background-color: var(--hr-green); color: var(--hr-black); transform: translateY(-2px); }
+
+        /* =========================================
+           SECCIÓN DE RESPIRO
+           ========================================= */
+        .breathing-section { position: relative; background-color: var(--hr-beige); padding: 150px 5%; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 70vh; overflow: hidden; }
+        .breathing-text { position: relative; z-index: 10; max-width: 900px; }
+        .breathing-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 12vw, 9rem); color: var(--hr-dark-green); line-height: 0.85; letter-spacing: 2px; margin: 0; text-transform: uppercase; }
+        .breathing-text h2 .text-black { color: var(--hr-black); }
+        .breathing-text p { font-family: 'Lexend', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--hr-orange); margin-top: 30px; letter-spacing: 2px; text-transform: uppercase; }
+        .floating-items img { position: absolute; z-index: 5; filter: drop-shadow(15px 20px 15px rgba(0,0,0,0.15)); }
+        
+        .float-tuti { top: 15%; left: 10%; width: 140px; animation: float1 6s ease-in-out infinite; }
+        .float-ing-1 { top: 15%; right: 12%; width: 140px; animation: float2 5s ease-in-out infinite; } 
+        .float-ing-2 { bottom: 12%; left: 15%; width: 160px; animation: float3 7s ease-in-out infinite; } 
+        .float-ing-3 { bottom: 20%; right: 15%; width: 125px; animation: float4 5.5s ease-in-out infinite; }
+        
+        @keyframes float1 { 0%, 100% { transform: translateY(0) rotate(-15deg); } 50% { transform: translateY(-25px) rotate(-5deg); } }
+        @keyframes float2 { 0%, 100% { transform: translateY(0) rotate(25deg); } 50% { transform: translateY(-20px) rotate(35deg); } }
+        @keyframes float3 { 0%, 100% { transform: translateY(0) rotate(10deg); } 50% { transform: translateY(-30px) rotate(0deg); } }
+        @keyframes float4 { 0%, 100% { transform: translateY(0) rotate(-30deg); } 50% { transform: translateY(-15px) rotate(-20deg); } }
+
+        /* =========================================
+           SECCIÓN: NÚMEROS QUE HABLAN
+           ========================================= */
+        .numbers-section {
+            background-color: var(--hr-dark-green);
+            color: var(--hr-white);
+            padding: 120px 5% 80px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        .rollo-image-container { 
+            position: absolute;
+            top: 50%; 
+            right: -5%; 
+            left: auto; 
+            transform: translateY(-50%) rotate(-15deg); 
+            width: 100%; 
+            max-width: 550px; 
+            z-index: 1; 
+            opacity: 0.45; 
+            pointer-events: none; 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+        }
+
+        .rollo-image-container img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            object-fit: contain; 
+        }
+
+        .numbers-title {
+            position: relative;
+            z-index: 10;
+            margin-bottom: 60px;
+        }
+        
+        .numbers-title h2 { 
+            font-family: 'Bebas Neue', sans-serif; 
+            font-size: clamp(4rem, 8vw, 6rem); 
+            letter-spacing: 2px; 
+            line-height: 1; 
+            margin: 0;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.6); 
+        }
+        
+        .numbers-title p { 
+            font-family: 'Lexend', sans-serif; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            margin-top: 5px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+        
+        .numbers-grid { 
+            display: flex; 
+            justify-content: center; 
+            gap: 40px; 
+            flex-wrap: wrap; 
+            margin-bottom: 50px; 
+            position: relative;
+            z-index: 10; 
+        }
+        
+        .num-card { 
+            background: var(--hr-white);
+            border: 4px solid var(--hr-black);
+            border-radius: 20px;
+            padding: 45px 30px 35px;
+            min-width: 280px;
+            box-shadow: 8px 8px 0 var(--hr-yellow);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .num-card:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 13px 13px 0 var(--hr-orange);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--hr-black);
+            color: var(--hr-white);
+            font-family: 'Bebas Neue', sans-serif;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .num-card h3 { 
+            color: var(--hr-black); 
+            font-family: 'Bebas Neue', sans-serif; 
+            font-size: 6rem; 
+            line-height: 1; 
+            margin: 15px 0 5px;
+        }
+
+        .num-card p { 
+            color: var(--hr-dark-green);
+            font-weight: 900; 
+            font-size: 1.2rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .numbers-subtext { 
+            font-size: 1.2rem; 
+            line-height: 1.6; 
+            font-weight: 700;
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        /* =========================================
+           SECCIÓN: KIOSKOS PLUG & PLAY (FOTO DESCUBIERTA)
+           ========================================= */
+        .kiosk-section {
+            background-color: var(--hr-black);
+            color: var(--hr-white);
+            position: relative;
+            padding: 0; 
+            display: grid;
+            /* CAMBIO CLAVE: 40% texto, 60% foto */
+            grid-template-columns: 40% 60%;
+            align-items: stretch; 
+            overflow: hidden; 
+        }
+        
+        /* Retraemos la figura verde para que no se coma tu foto */
+        .kiosk-bg-shape {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 45%; /* Antes estaba en 60% */
+            height: 100%;
+            background-color: var(--hr-dark-green); 
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); 
+            z-index: 1;
+        }
+
+        .kiosk-content { 
+            position: relative; 
+            z-index: 2; 
+            padding: 80px 10% 80px 8%; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .kiosk-title { 
+            font-family: 'Shadows Into Light', cursive; 
+            font-size: clamp(3rem, 5vw, 4.5rem); 
+            line-height: 1; 
+            margin-bottom: 15px; 
+        }
+
+        .kiosk-title .ampersand { 
+            font-family: 'Bebas Neue', sans-serif; 
+            color: var(--hr-yellow); 
+            font-size: clamp(3.5rem, 6vw, 5rem); 
+            vertical-align: middle;
+        }
+
+        .kiosk-subtitle { 
+            font-family: 'Bebas Neue', sans-serif; 
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem); 
+            letter-spacing: 1px; 
+            line-height: 1.2; 
+            margin-bottom: 30px; 
+        }
+
+        .kiosk-list { list-style: none; margin-bottom: 0; }
+        
+        .kiosk-list li { 
+            font-size: 1rem; 
+            margin-bottom: 18px; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            font-weight: 700; 
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .kiosk-list li::before { 
+            content: ''; 
+            display: inline-block; 
+            width: 12px; 
+            height: 12px; 
+            background-color: var(--hr-yellow); 
+            border-radius: 50%; 
+            flex-shrink: 0; 
+        }
+
+        /* Reducimos el margen negativo; la foto ahora domina la derecha */
+        .kiosk-image-wrapper { 
+            position: relative; 
+            z-index: 0; 
+            margin-left: -5%; /* Solo un pequeño traslape bajo la diagonal verde */
+            width: 105%; 
+            height: 100%;
+        }
+
+        .kiosk-image-wrapper img { 
+            width: 100%; 
+            height: 100%; 
+            display: block; 
+            object-fit: cover; 
+            object-position: center; /* Centramos para ver todo el diseño del local */
+        }
+
+        .kiosk-footer-text {
+            grid-column: 1 / -1; 
+            background-color: var(--hr-black);
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            padding: 30px 5%;
+            margin: 0; 
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .kiosk-footer-text span { color: var(--hr-yellow); }
+
+        /* =========================================
+           SECCIÓN DE CONTACTO
+           ========================================= */
+        .contact-section { padding: 150px 8% 120px; background: var(--hr-beige); position: relative; }
+        .form-wrapper { position: relative; max-width: 1000px; margin: 0 auto; z-index: 10; }
+        .tuti-mascot-form { position: absolute; top: -110px; right: 50px; width: 130px; z-index: -1; transform: translateY(100px); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .tuti-bubble { position: absolute; top: -150px; right: 170px; background: var(--hr-white); color: var(--hr-black); padding: 15px 25px; border-radius: 20px; border-bottom-right-radius: 0; font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; opacity: 0; transform: translateY(20px); transition: all 0.4s ease 0.1s; box-shadow: 4px 4px 0 var(--hr-black); border: 3px solid var(--hr-black); z-index: -1; }
+        .form-wrapper:hover .tuti-mascot-form { transform: translateY(0) rotate(8deg); }
+        .form-wrapper:hover .tuti-bubble { opacity: 1; transform: translateY(0); }
+        .form-container { background: var(--hr-white); display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 30px 60px rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; border: 4px solid var(--hr-black); }
+        .form-info { background: var(--hr-yellow); color: var(--hr-black); padding: 60px; }
+        .form-info h2 { font-size: 4.5rem; line-height: 0.9; }
+        .form-info ul { list-style: none; padding: 0; margin-top: 40px; font-weight: 700; font-size: 1.2rem; line-height: 2; }
+        .form-fields { padding: 60px; background: var(--hr-white); }
+        input, select, textarea { width: 100%; padding: 18px; margin-bottom: 20px; border: 2px solid #EEE; border-radius: 8px; font-family: 'Lexend', sans-serif; font-size: 1rem; background: #FAFAFA; }
+        input:focus, select:focus, textarea:focus { border-color: var(--hr-green); outline: none; background: var(--hr-white);}
+        .btn-submit { background: var(--hr-black); color: var(--hr-white); border: none; padding: 20px; width: 100%; border-radius: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; cursor: pointer; transition: 0.3s; box-shadow: 5px 5px 0 var(--hr-green); }
+        .btn-submit:hover { background: var(--hr-deep-green); transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--hr-green); }
+
+        footer { background: var(--hr-black); color: var(--hr-white); padding: 80px 8% 40px; text-align: center; position: relative;}
+        .footer-logo { font-size: 5rem; color: var(--hr-green); margin-bottom: 20px; position: relative; z-index: 10;}
+
+        /* =========================================
+           AJUSTES MÓVILES
+           ========================================= */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .navbar { width: 90%; padding: 15px 20px; }
+            .nav-logo { font-size: 1.5rem; }
+            .nav-cta { font-size: 0.7rem; padding: 8px 15px; }
+            .hero-carousel { height: 100vh; }
+            .tuti-walker { display: none; }
+            .breathing-section { min-height: 50vh; padding: 100px 5%; }
+            
+            .float-tuti { width: 90px; left: 5%; top: 5%; }
+            .float-ing-1 { width: 95px; right: 5%; top: 8%; }
+            .float-ing-2 { width: 110px; left: 5%; bottom: 8%; }
+            .float-ing-3 { width: 85px; right: 5%; bottom: 12%; }
+            
+            .numbers-grid { flex-direction: column; gap: 30px; }
+            
+            .rollo-image-container { top: 60%; max-width: 90%; }
+            
+            /* Ajuste del kiosko en móvil */
+            .kiosk-section { grid-template-columns: 1fr; padding: 0; gap: 0; }
+            .kiosk-bg-shape { display: none; } /* Apagamos la forma flotante */
+            
+            .kiosk-content { 
+                background-color: var(--hr-dark-green);
+                padding: 60px 8% 80px; 
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 92%); /* Corte diagonal abajo */
+                z-index: 2;
+                text-align: center;
+            }
+            .kiosk-list li { text-align: left; justify-content: flex-start; }
+            
+            .kiosk-image-wrapper { 
+                margin-left: 0; 
+                width: 100%;
+                height: 50vh; 
+                min-height: 300px;
+                margin-top: -10%; /* Metemos la foto por debajo de la diagonal */
+                z-index: 1;
+            }
+            
+            .form-container { grid-template-columns: 1fr; }
+            .tuti-mascot-form { right: 20px; width: 100px; top: -80px;}
+            .tuti-bubble { right: 100px; font-size: 1.2rem; top: -120px;}
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar" class="navbar">
+        <a href="#" class="nav-logo">HOT ROLLS</a>
+        <ul class="nav-links">
+            <li><a href="#">MENÚ</a></li>
+            <li><a href="#">PROMOCIONES</a></li>
+            <li><a href="#">NOSOTROS</a></li>
+            <li><a href="#">FRANQUICIAS</a></li>
+        </ul>
+        <a href="#" class="nav-cta">CONOCE LAS PROMOS 🔥</a>
+    </nav>
+
+    <section class="hero-carousel">
+        <div class="carousel-track" id="heroTrack">
+            <div class="carousel-slide">
+                <img src="fondo1.jpg" alt="Fondo Hot Rolls" class="banner-image">
+            </div>
+            <div class="carousel-slide">
+                <img src="fondo2.jpg" alt="Menú Hot Rolls" class="banner-image">
+            </div>
+        </div>
+        <button class="carousel-btn prev" id="btnPrev">&#10094;</button>
+        <button class="carousel-btn next" id="btnNext">&#10095;</button>
+        <div class="carousel-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <img src="Capa 2.png" alt="Tuti Mascot" class="tuti-stats">
+        <div class="stat-item">
+            <h3>$4,400</h3>
+            <p>Inversión Mínima Kit</p>
+        </div>
+        <div class="stat-item">
+            <h3>35%</h3>
+            <p>Margen Operativo</p>
+        </div>
+        <div class="stat-item">
+            <h3>12-18</h3>
+            <p>Meses de Retorno</p>
+        </div>
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Sabor y Actitud</p>
+        </div>
+    </section>
+
+    <section class="menu-section">
+        <img src="Capa 3.png" alt="Tuti Walker" class="tuti-walker">
+        <div class="menu-header">
+            <h2 class="big-title">LOS INEVITABLES<br>DE HOT ROLLS</h2>
+            <p class="compliance">MOCKUPS CON EMPAQUE TRANSPARENTE EN CUMPLIMIENTO CON LA NOM-051.</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="Gemini_Generated_Image_osbzmuosbzmuosbz.jpg" alt="Volumen Rock" style="mix-blend-mode: multiply; border-radius: 15px;">
+                <h4 class="script-subtitle">El clásico de canela</h4>
+                <h3 class="item-title">VOLUMEN ROCK</h3>
+                <p class="item-desc">Masa artesanal horneada con el toque perfecto de canela y glaseado. El inicio de todo.</p>
+                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+            </div>
+            <div class="menu-item">
+                <img src="hotrolls2.jpg" alt="Chakaton Style" style="border-radius: 15px;">
+                <h4 class="script-subtitle">Salsa secreta del barrio</h4>
+                <h3 class="item-title">CHAKATÓN STYLE</h3>
+                <p class="item-desc">Relleno contundente, bañado en nuestra salsa secreta que mezcla lo mejor del mundo urbano.</p>
+                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+            </div>
+            <div class="menu-item">
+                <img src="quesoso.jpg" alt="Tumbado Roll" style="border-radius: 15px;">
+                <h4 class="script-subtitle">Crujiente por fuera</h4>
+                <h3 class="item-title">TUMBADO ROLL</h3>
+                <p class="item-desc">Costra de queso crujiente y un interior suave que se derrite. Una experiencia bélica de sabor.</p>
+                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+            </div>
+            <div class="menu-item">
+                <img src="mochoso.jpg" alt="Jauria Crunch" style="border-radius: 15px;">
+                <h4 class="script-subtitle">Topping extremo</h4>
+                <h3 class="item-title">JAURIA CRUNCH</h3>
+                <p class="item-desc">Para los que no tienen límites. Extra proteína y una lluvia de texturas crujientes irresistibles.</p>
+                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="breathing-section">
+        <div class="floating-items">
+            <img src="Capa 1.png" alt="Tuti volando" class="float-tuti">
+            <img src="peperon.png" alt="Pepperoni volando" class="float-ing-1">
+            <img src="queso.png" alt="Queso volando" class="float-ing-2">
+            <img src="jalapeño.png" alt="Jalapeño volando" class="float-ing-3">
+        </div>
+        <div class="breathing-text">
+            <h2>
+                EL ÉXITO DE <br>
+                <span class="text-black">UN BUEN ROLL</span> <br>
+                ESTÁ EN EL RELLENO
+            </h2>
+            <p>DESCUBRE NUESTRAS COMBINACIONES BÉLICAS</p>
+        </div>
+    </section>
+
+    <section class="numbers-section">
+        <div class="rollo-image-container">
+            <img src="roll.png" alt="Date un Roll">
+        </div>
+
+        <div class="numbers-title">
+            <h2>NÚMEROS QUE HABLAN</h2>
+            <p>DISEÑO Y PERFORMANCE</p>
+        </div>
+        
+        <div class="numbers-grid">
+            <div class="num-card">
+                <div class="card-badge">OPERACIÓN</div>
+                <h3>3 MIN</h3>
+                <p>POR ORDEN</p>
+            </div>
+            <div class="num-card">
+                <div class="card-badge">RENTABILIDAD</div>
+                <h3>$139</h3>
+                <p>TICKET PROMEDIO</p>
+            </div>
+            <div class="num-card">
+                <div class="card-badge">VOLUMEN</div>
+                <h3>150+</h3>
+                <p>TICKETS POR DÍA</p>
+            </div>
+        </div>
+
+        <div class="numbers-subtext">
+            <p>Formatos desde 4 m²<br>Alta recompra y rotación constante</p>
+        </div>
+    </section>
+
+    <section class="kiosk-section">
+        <div class="kiosk-bg-shape"></div>
+        
+        <div class="kiosk-content">
+            <h2 class="kiosk-title">Kioskos <span class="ampersand">&</span> Play</h2>
+            <div class="kiosk-subtitle">
+                VELOCIDAD TAMBIÉN PARA ABRIR<br>
+                DE FIRMA A OPERACIÓN:<br>
+                SEMANAS, NO MESES
+            </div>
+            <ul class="kiosk-list">
+                <li>LLEGAR, ENCHUFAR Y EMPEZAR A OPERAR</li>
+                <li>OBRA MÍNIMA O NULA</li>
+                <li>IDEAL PARA ESPACIOS NO TRADICIONALES</li>
+                <li>MONTAJE ULTRARRÁPIDO</li>
+            </ul>
+        </div>
+
+        <div class="kiosk-image-wrapper">
+            <img src="kiosko.png" alt="Kiosko Hot Rolls en Plaza">
+        </div>
+
+        <div class="kiosk-footer-text">
+            LA <span>RAPIDEZ</span> NO SOLO ESTÁ EN EL SERVICIO, TAMBIÉN <span>EN LA APERTURA.</span>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="form-wrapper">
+            <div class="tuti-bubble">¡Ey! Únete al equipo.</div>
+            <img src="Capa 1.png" alt="Tuti Mascot" class="tuti-mascot-form">
+            <div class="form-container">
+                <div class="form-info">
+                    <h2 class="big-title">DATE UN<br>ROLL</h2>
+                    <p style="font-family: 'Lexend'; margin-top: 15px; font-size: 1.1rem; color: #333;">Si tienes visión para los negocios y quieres un modelo rentable, únete a la marca.</p>
+                    <ul>
+                        <li>✓ Kit inicial accesible de $4,400</li>
+                        <li>✓ Manual de marca y procesos</li>
+                        <li>✓ Estrategias de marketing incluidas</li>
+                    </ul>
+                </div>
+                <div class="form-fields">
+                    <form>
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="tel" placeholder="Teléfono / WhatsApp" required>
+                        <select required>
+                            <option value="" disabled selected>Ciudad de interés</option>
+                            <option>Ciudad de México</option>
+                            <option>Michoacán</option>
+                            <option>Jalisco</option>
+                            <option>Otra ubicación</option>
+                        </select>
+                        <textarea placeholder="Cuéntanos un poco sobre tu experiencia comercial" style="height: 100px; resize: none;"></textarea>
+                        <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <img src="Capa 5.png" alt="Tuti Mascot" class="tuti-footer">
+        <div class="footer-logo big-title">HOT ROLLS</div>
+        <p style="margin-top: 20px; font-size: 0.85rem; color: #888;">© 2026 HOT ROLLS. TODOS LOS DERECHOS RESERVADOS. OPERADO POR MANGO BUSINESS CENTER.</p>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const track = document.getElementById('heroTrack');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const dots = document.querySelectorAll('.dot');
+        const slides = document.querySelectorAll('.carousel-slide');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        function updateCarousel(index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+            updateCarousel(nextIndex);
+        }
+
+        function prevSlide() {
+            let prevIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+            updateCarousel(prevIndex);
+        }
+
+        btnNext.addEventListener('click', () => {
+            nextSlide();
+            resetInterval();
+        });
+
+        btnPrev.addEventListener('click', () => {
+            prevSlide();
+            resetInterval();
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                updateCarousel(index);
+                resetInterval();
+            });
+        });
+
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, 6000);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startInterval();
+        }
+
+        startInterval();
+    </script>
+</body>
+</html>
