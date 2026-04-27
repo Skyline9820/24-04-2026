@@ -20,6 +20,10 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        html {
+            scroll-behavior: smooth; 
+        }
+
         body { 
             font-family: 'Lexend', sans-serif; 
             background-color: var(--hr-beige); 
@@ -36,7 +40,7 @@
         }
 
         /* =========================================
-           NAVBAR
+           NAVBAR (Desktop)
            ========================================= */
         .navbar {
             position: fixed;
@@ -63,13 +67,46 @@
             box-shadow: none; 
         }
 
-        .nav-logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem; 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 35px; /* Más espacio entre el enlace y el logo */
+        }
+
+        .back-home-link {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem; /* Tamaño más grande y legible */
             color: var(--hr-dark-green);
             text-decoration: none;
             letter-spacing: 1px;
-            margin-right: 20px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-home-link:hover {
+            color: var(--hr-orange);
+            transform: translateX(-3px); 
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 55px; /* Logo más grande y proporcionado */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.05); 
         }
 
         .nav-links {
@@ -115,24 +152,12 @@
         /* =========================================
            CARRUSEL HERO SECTION
            ========================================= */
-        .hero-carousel {
-            position: relative;
-            width: 100%;
-            height: 100vh; 
-            overflow: hidden;
-            background-color: var(--hr-deep-green);
-        }
-
+        .hero-carousel { position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: var(--hr-deep-green); }
         .carousel-track { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
         .carousel-slide { min-width: 100%; height: 100%; position: relative; }
         .banner-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
-        .carousel-btn {
-            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.4);
-            color: var(--hr-white); border: none; width: 50px; height: 50px; border-radius: 50%;
-            font-size: 1.5rem; cursor: pointer; z-index: 20; transition: all 0.3s ease;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.4); color: var(--hr-white); border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 20; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
         .carousel-btn:hover { background: var(--hr-orange); transform: translateY(-50%) scale(1.1); }
         .carousel-btn.prev { left: 2%; }
         .carousel-btn.next { right: 2%; }
@@ -159,7 +184,7 @@
            ========================================= */
         .menu-section { padding: 100px 5%; background-color: var(--hr-beige); text-align: center; position: relative; }
         .menu-header { margin-bottom: 80px; }
-        .menu-header h2 { font-size: 5.5rem; color: var(--hr-deep-green); }
+        .menu-header h2 { font-size: clamp(4rem, 8vw, 5.5rem); color: var(--hr-deep-green); }
         .menu-header p.compliance { font-size: 0.75rem; font-weight: 800; color: var(--hr-dark-green); margin-top: 15px; letter-spacing: 2px; }
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1400px; margin: 0 auto; }
         .menu-item { display: flex; flex-direction: column; align-items: center; }
@@ -172,13 +197,36 @@
         .item-btn:hover { background-color: var(--hr-green); color: var(--hr-black); transform: translateY(-2px); }
 
         /* =========================================
+           SECCIÓN: PROMOCIONES
+           ========================================= */
+        .promo-section { padding: 120px 5%; background-color: var(--hr-orange); text-align: center; }
+        .promo-header h2 { font-size: clamp(4rem, 8vw, 5rem); color: var(--hr-white); text-shadow: 4px 4px 0 var(--hr-black); }
+        .promo-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 60px; }
+        .promo-card { background-color: var(--hr-black); color: var(--hr-white); padding: 40px 30px; border-radius: 20px; width: 100%; max-width: 350px; border: 5px solid var(--hr-yellow); transform: rotate(-2deg); transition: all 0.3s ease; position: relative; }
+        .promo-card:nth-child(2) { transform: rotate(2deg); border-color: var(--hr-green); }
+        .promo-card:hover { transform: rotate(0deg) scale(1.05); box-shadow: 10px 10px 0 var(--hr-beige); }
+        .promo-price { background-color: var(--hr-white); color: var(--hr-black); font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; padding: 5px 20px; border-radius: 50px; display: inline-block; margin-bottom: 20px; }
+        .promo-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1; color: var(--hr-yellow); margin-bottom: 15px; }
+        .promo-card p { font-family: 'Lexend', sans-serif; font-size: 1rem; line-height: 1.5; margin-bottom: 25px; }
+
+        /* =========================================
+           SECCIÓN: NOSOTROS
+           ========================================= */
+        .about-section { padding: 150px 8%; background-color: var(--hr-beige); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; }
+        .about-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem); color: var(--hr-deep-green); line-height: 0.9; margin-bottom: 30px; }
+        .about-text p { font-family: 'Lexend', sans-serif; font-size: 1.1rem; line-height: 1.8; color: #444; margin-bottom: 20px; }
+        .about-text .highlight { color: var(--hr-orange); font-weight: 900; }
+        .about-image-wrapper { position: relative; }
+        .about-img { width: 100%; border-radius: 20px; border: 6px solid var(--hr-black); box-shadow: -20px 20px 0 var(--hr-green); object-fit: cover; }
+
+        /* =========================================
            SECCIÓN DE RESPIRO
            ========================================= */
         .breathing-section { position: relative; background-color: var(--hr-beige); padding: 150px 5%; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 70vh; overflow: hidden; }
         .breathing-text { position: relative; z-index: 10; max-width: 900px; }
-        .breathing-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 12vw, 9rem); color: var(--hr-dark-green); line-height: 0.85; letter-spacing: 2px; margin: 0; text-transform: uppercase; }
+        .breathing-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 10vw, 9rem); color: var(--hr-dark-green); line-height: 0.85; letter-spacing: 2px; margin: 0; text-transform: uppercase; }
         .breathing-text h2 .text-black { color: var(--hr-black); }
-        .breathing-text p { font-family: 'Lexend', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--hr-orange); margin-top: 30px; letter-spacing: 2px; text-transform: uppercase; }
+        .breathing-text p { font-family: 'Lexend', sans-serif; font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 900; color: var(--hr-orange); margin-top: 30px; letter-spacing: 2px; text-transform: uppercase; }
         .floating-items img { position: absolute; z-index: 5; filter: drop-shadow(15px 20px 15px rgba(0,0,0,0.15)); }
         
         .float-tuti { top: 15%; left: 10%; width: 140px; animation: float1 6s ease-in-out infinite; }
@@ -194,238 +242,57 @@
         /* =========================================
            SECCIÓN: NÚMEROS QUE HABLAN
            ========================================= */
-        .numbers-section {
-            background-color: var(--hr-dark-green);
-            color: var(--hr-white);
-            padding: 120px 5% 80px; 
-            text-align: center;
-            position: relative;
-            overflow: hidden; 
-        }
-
-        .rollo-image-container { 
-            position: absolute;
-            top: 50%; 
-            right: -5%; 
-            left: auto; 
-            transform: translateY(-50%) rotate(-15deg); 
-            width: 100%; 
-            max-width: 550px; 
-            z-index: 1; 
-            opacity: 0.45; 
-            pointer-events: none; 
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
-        }
-
-        .rollo-image-container img { 
-            width: 100%; 
-            height: auto; 
-            display: block; 
-            object-fit: contain; 
-        }
-
-        .numbers-title {
-            position: relative;
-            z-index: 10;
-            margin-bottom: 60px;
-        }
-        
-        .numbers-title h2 { 
-            font-family: 'Bebas Neue', sans-serif; 
-            font-size: clamp(4rem, 8vw, 6rem); 
-            letter-spacing: 2px; 
-            line-height: 1; 
-            margin: 0;
-            text-shadow: 0 5px 20px rgba(0,0,0,0.6); 
-        }
-        
-        .numbers-title p { 
-            font-family: 'Lexend', sans-serif; 
-            font-size: 1.2rem; 
-            font-weight: 700; 
-            letter-spacing: 1px; 
-            margin-top: 5px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        }
-        
-        .numbers-grid { 
-            display: flex; 
-            justify-content: center; 
-            gap: 40px; 
-            flex-wrap: wrap; 
-            margin-bottom: 50px; 
-            position: relative;
-            z-index: 10; 
-        }
-        
-        .num-card { 
-            background: var(--hr-white);
-            border: 4px solid var(--hr-black);
-            border-radius: 20px;
-            padding: 45px 30px 35px;
-            min-width: 280px;
-            box-shadow: 8px 8px 0 var(--hr-yellow);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .num-card:hover {
-            transform: translate(-5px, -5px);
-            box-shadow: 13px 13px 0 var(--hr-orange);
-        }
-
-        .card-badge {
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--hr-black);
-            color: var(--hr-white);
-            font-family: 'Bebas Neue', sans-serif;
-            padding: 6px 20px;
-            border-radius: 20px;
-            font-size: 1.3rem;
-            letter-spacing: 2px;
-            white-space: nowrap;
-        }
-
-        .num-card h3 { 
-            color: var(--hr-black); 
-            font-family: 'Bebas Neue', sans-serif; 
-            font-size: 6rem; 
-            line-height: 1; 
-            margin: 15px 0 5px;
-        }
-
-        .num-card p { 
-            color: var(--hr-dark-green);
-            font-weight: 900; 
-            font-size: 1.2rem; 
-            letter-spacing: 1px; 
-            text-transform: uppercase;
-            margin: 0;
-        }
-
-        .numbers-subtext { 
-            font-size: 1.2rem; 
-            line-height: 1.6; 
-            font-weight: 700;
-            position: relative;
-            z-index: 10;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        }
+        .numbers-section { background-color: var(--hr-dark-green); color: var(--hr-white); padding: 120px 5% 80px; text-align: center; position: relative; overflow: hidden; }
+        .rollo-image-container { position: absolute; top: 50%; right: -5%; left: auto; transform: translateY(-50%) rotate(-15deg); width: 100%; max-width: 550px; z-index: 1; opacity: 0.45; pointer-events: none; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); }
+        .rollo-image-container img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .numbers-title { position: relative; z-index: 10; margin-bottom: 60px; }
+        .numbers-title h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 8vw, 6rem); letter-spacing: 2px; line-height: 1; margin: 0; text-shadow: 0 5px 20px rgba(0,0,0,0.6); }
+        .numbers-title p { font-family: 'Lexend', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; margin-top: 5px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+        .numbers-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 50px; position: relative; z-index: 10; }
+        .num-card { background: var(--hr-white); border: 4px solid var(--hr-black); border-radius: 20px; padding: 45px 30px 35px; min-width: 280px; box-shadow: 8px 8px 0 var(--hr-yellow); transition: all 0.3s ease; position: relative; }
+        .num-card:hover { transform: translate(-5px, -5px); box-shadow: 13px 13px 0 var(--hr-orange); }
+        .card-badge { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background: var(--hr-black); color: var(--hr-white); font-family: 'Bebas Neue', sans-serif; padding: 6px 20px; border-radius: 20px; font-size: 1.3rem; letter-spacing: 2px; white-space: nowrap; }
+        .num-card h3 { color: var(--hr-black); font-family: 'Bebas Neue', sans-serif; font-size: 6rem; line-height: 1; margin: 15px 0 5px; }
+        .num-card p { color: var(--hr-dark-green); font-weight: 900; font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; margin: 0; }
+        .numbers-subtext { font-size: 1.2rem; line-height: 1.6; font-weight: 700; position: relative; z-index: 10; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
 
         /* =========================================
-           SECCIÓN: KIOSKOS PLUG & PLAY (FOTO DESCUBIERTA)
+           SECCIÓN: KIOSKOS PLUG & PLAY
            ========================================= */
-        .kiosk-section {
-            background-color: var(--hr-black);
-            color: var(--hr-white);
-            position: relative;
+        .kiosk-section { 
+            /* REPARADO: Degradado suave de verde oscuro a negro para fundirse con la sección de arriba */
+            background: linear-gradient(to bottom, var(--hr-dark-green) 0%, var(--hr-black) 150px);
+            color: var(--hr-white); 
+            position: relative; 
             padding: 0; 
-            display: grid;
-            /* CAMBIO CLAVE: 40% texto, 60% foto */
-            grid-template-columns: 40% 60%;
+            display: grid; 
+            grid-template-columns: 40% 60%; 
             align-items: stretch; 
             overflow: hidden; 
         }
         
-        /* Retraemos la figura verde para que no se coma tu foto */
-        .kiosk-bg-shape {
-            position: absolute;
-            top: 0; 
-            left: 0; 
-            width: 45%; /* Antes estaba en 60% */
-            height: 100%;
-            background-color: var(--hr-dark-green); 
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); 
-            z-index: 1;
-        }
-
-        .kiosk-content { 
-            position: relative; 
-            z-index: 2; 
-            padding: 80px 10% 80px 8%; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .kiosk-title { 
-            font-family: 'Shadows Into Light', cursive; 
-            font-size: clamp(3rem, 5vw, 4.5rem); 
-            line-height: 1; 
-            margin-bottom: 15px; 
-        }
-
-        .kiosk-title .ampersand { 
-            font-family: 'Bebas Neue', sans-serif; 
-            color: var(--hr-yellow); 
-            font-size: clamp(3.5rem, 6vw, 5rem); 
-            vertical-align: middle;
-        }
-
-        .kiosk-subtitle { 
-            font-family: 'Bebas Neue', sans-serif; 
-            font-size: clamp(1.6rem, 2.5vw, 2.2rem); 
-            letter-spacing: 1px; 
-            line-height: 1.2; 
-            margin-bottom: 30px; 
-        }
-
+        .kiosk-bg-shape { position: absolute; top: 0; left: 0; width: 45%; height: 100%; background-color: var(--hr-dark-green); clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); z-index: 1; }
+        .kiosk-content { position: relative; z-index: 2; padding: 80px 10% 80px 8%; display: flex; flex-direction: column; justify-content: center; }
+        .kiosk-title { font-family: 'Shadows Into Light', cursive; font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1; margin-bottom: 15px; }
+        .kiosk-title .ampersand { font-family: 'Bebas Neue', sans-serif; color: var(--hr-yellow); font-size: clamp(3.5rem, 6vw, 5rem); vertical-align: middle; }
+        .kiosk-subtitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); letter-spacing: 1px; line-height: 1.2; margin-bottom: 30px; }
         .kiosk-list { list-style: none; margin-bottom: 0; }
+        .kiosk-list li { font-size: 1rem; margin-bottom: 18px; display: flex; align-items: center; gap: 15px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+        .kiosk-list li::before { content: ''; display: inline-block; width: 12px; height: 12px; background-color: var(--hr-yellow); border-radius: 50%; flex-shrink: 0; }
         
-        .kiosk-list li { 
-            font-size: 1rem; 
-            margin-bottom: 18px; 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            font-weight: 700; 
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .kiosk-list li::before { 
-            content: ''; 
-            display: inline-block; 
-            width: 12px; 
-            height: 12px; 
-            background-color: var(--hr-yellow); 
-            border-radius: 50%; 
-            flex-shrink: 0; 
-        }
-
-        /* Reducimos el margen negativo; la foto ahora domina la derecha */
         .kiosk-image-wrapper { 
             position: relative; 
             z-index: 0; 
-            margin-left: -5%; /* Solo un pequeño traslape bajo la diagonal verde */
+            margin-left: -5%; 
             width: 105%; 
-            height: 100%;
-        }
-
-        .kiosk-image-wrapper img { 
-            width: 100%; 
             height: 100%; 
-            display: block; 
-            object-fit: cover; 
-            object-position: center; /* Centramos para ver todo el diseño del local */
-        }
-
-        .kiosk-footer-text {
-            grid-column: 1 / -1; 
-            background-color: var(--hr-black);
-            text-align: center;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            padding: 30px 5%;
-            margin: 0; 
-            letter-spacing: 1.5px;
-            position: relative;
-            z-index: 2;
+            /* LA MAGIA: Desvanecemos la foto hacia arriba para borrar el corte duro */
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 150px);
+            mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 150px);
         }
         
+        .kiosk-image-wrapper img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
+        .kiosk-footer-text { grid-column: 1 / -1; background-color: var(--hr-black); text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3vw, 2.5rem); padding: 30px 5%; margin: 0; letter-spacing: 1.5px; position: relative; z-index: 2; }
         .kiosk-footer-text span { color: var(--hr-yellow); }
 
         /* =========================================
@@ -439,7 +306,7 @@
         .form-wrapper:hover .tuti-bubble { opacity: 1; transform: translateY(0); }
         .form-container { background: var(--hr-white); display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 30px 60px rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; border: 4px solid var(--hr-black); }
         .form-info { background: var(--hr-yellow); color: var(--hr-black); padding: 60px; }
-        .form-info h2 { font-size: 4.5rem; line-height: 0.9; }
+        .form-info h2 { font-size: clamp(3.5rem, 5vw, 4.5rem); line-height: 0.9; }
         .form-info ul { list-style: none; padding: 0; margin-top: 40px; font-weight: 700; font-size: 1.2rem; line-height: 2; }
         .form-fields { padding: 60px; background: var(--hr-white); }
         input, select, textarea { width: 100%; padding: 18px; margin-bottom: 20px; border: 2px solid #EEE; border-radius: 8px; font-family: 'Lexend', sans-serif; font-size: 1rem; background: #FAFAFA; }
@@ -451,65 +318,99 @@
         .footer-logo { font-size: 5rem; color: var(--hr-green); margin-bottom: 20px; position: relative; z-index: 10;}
 
         /* =========================================
-           AJUSTES MÓVILES
+           AJUSTES PARA TABLETS Y MÓVILES
            ========================================= */
+        @media (max-width: 1024px) {
+            .nav-links { display: none; /* Ocultamos el menú completo en tablets y celulares */ }
+        }
+
         @media (max-width: 900px) {
-            .nav-links { display: none; }
-            .navbar { width: 90%; padding: 15px 20px; }
-            .nav-logo { font-size: 1.5rem; }
-            .nav-cta { font-size: 0.7rem; padding: 8px 15px; }
+            /* Ajustes generales del Navbar */
+            .navbar { width: 95%; padding: 12px 20px; }
+            .nav-left { gap: 15px; }
+            .nav-logo img { height: 45px; } 
+            .back-home-link { font-size: 0.9rem; }
+            .nav-cta { font-size: 0.75rem; padding: 8px 15px; }
+            
+            /* Ajustes de Secciones Generales */
             .hero-carousel { height: 100vh; }
             .tuti-walker { display: none; }
             .breathing-section { min-height: 50vh; padding: 100px 5%; }
+            .menu-section { padding: 80px 5%; }
+            .contact-section { padding: 100px 5% 80px; }
             
+            /* Ajustes de Imágenes Flotantes */
             .float-tuti { width: 90px; left: 5%; top: 5%; }
             .float-ing-1 { width: 95px; right: 5%; top: 8%; }
             .float-ing-2 { width: 110px; left: 5%; bottom: 8%; }
             .float-ing-3 { width: 85px; right: 5%; bottom: 12%; }
             
+            /* Ajustes de Grids a 1 Columna */
             .numbers-grid { flex-direction: column; gap: 30px; }
-            
             .rollo-image-container { top: 60%; max-width: 90%; }
-            
-            /* Ajuste del kiosko en móvil */
-            .kiosk-section { grid-template-columns: 1fr; padding: 0; gap: 0; }
-            .kiosk-bg-shape { display: none; } /* Apagamos la forma flotante */
-            
-            .kiosk-content { 
-                background-color: var(--hr-dark-green);
-                padding: 60px 8% 80px; 
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 92%); /* Corte diagonal abajo */
-                z-index: 2;
-                text-align: center;
-            }
-            .kiosk-list li { text-align: left; justify-content: flex-start; }
-            
-            .kiosk-image-wrapper { 
-                margin-left: 0; 
-                width: 100%;
-                height: 50vh; 
-                min-height: 300px;
-                margin-top: -10%; /* Metemos la foto por debajo de la diagonal */
-                z-index: 1;
-            }
-            
+            .about-section { grid-template-columns: 1fr; padding: 80px 5%; text-align: center; }
+            .about-img { box-shadow: 0 15px 0 var(--hr-green); margin-top: 30px; }
+            .promo-card { transform: rotate(0deg); margin: 0 auto; }
             .form-container { grid-template-columns: 1fr; }
-            .tuti-mascot-form { right: 20px; width: 100px; top: -80px;}
-            .tuti-bubble { right: 100px; font-size: 1.2rem; top: -120px;}
+            
+            /* Ajuste del kiosko */
+            .kiosk-section { grid-template-columns: 1fr; padding: 0; gap: 0; background: var(--hr-dark-green); }
+            .kiosk-bg-shape { display: none; } 
+            .kiosk-content { background-color: transparent; padding: 60px 8% 80px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 92%); z-index: 2; text-align: center; }
+            .kiosk-list li { text-align: left; justify-content: flex-start; }
+            .kiosk-image-wrapper { margin-left: 0; width: 100%; height: 50vh; min-height: 300px; margin-top: -10%; z-index: 1; -webkit-mask-image: none; mask-image: none; }
+            
+            /* Ajustes Formulario (Evitando cortes de Tuti) */
+            .tuti-mascot-form { right: 20px; width: 100px; top: -80px; }
+            .tuti-bubble { right: 60px; font-size: 1.2rem; top: -120px; }
+            .form-info, .form-fields { padding: 40px 30px; }
+        }
+
+        /* Ajustes específicos para celulares */
+        @media (max-width: 600px) {
+            .navbar { padding: 10px 15px; }
+            .nav-left { gap: 10px; }
+            .nav-logo img { height: 38px; }
+            .back-home-link { font-size: 0.75rem; }
+            .nav-cta { font-size: 0.65rem; padding: 8px 12px; }
+            
+            .stats-bar { padding: 40px 5%; gap: 25px; text-align: center; }
+            .stat-item { border-left: none; border-bottom: 2px solid var(--hr-green); padding-left: 0; padding-bottom: 15px; }
+            .stat-item h3 { font-size: 3.5rem; }
+            .tuti-stats { display: none; } /* Ocultamos a Tuti en celular para limpiar la vista */
+            
+            .menu-grid { grid-template-columns: 1fr; }
+            .form-info, .form-fields { padding: 30px 20px; }
+            .tuti-mascot-form { width: 80px; right: 10px; top: -65px; }
+            .tuti-bubble { right: 20px; top: -100px; font-size: 1rem; padding: 10px 15px; }
+            .num-card h3 { font-size: 4.5rem; }
+        }
+
+        /* Celulares muy pequeños */
+        @media (max-width: 400px) {
+            .nav-logo img { height: 32px; }
+            .back-home-link { font-size: 0.65rem; }
+            .nav-cta { font-size: 0.6rem; padding: 6px 10px; }
+            .big-title { font-size: 3rem !important; }
         }
     </style>
 </head>
 <body>
 
     <nav id="navbar" class="navbar">
-        <a href="#" class="nav-logo">HOT ROLLS</a>
+        <div class="nav-left">
+            <a href="index.html" class="back-home-link">&larr; VOLVER AL INICIO</a>
+            <a href="#" class="nav-logo">
+                <img src="logo Hot rolls.png" alt="Logo Hot Rolls">
+            </a>
+        </div>
         <ul class="nav-links">
-            <li><a href="#">MENÚ</a></li>
-            <li><a href="#">PROMOCIONES</a></li>
-            <li><a href="#">NOSOTROS</a></li>
-            <li><a href="#">FRANQUICIAS</a></li>
+            <li><a href="#menu">MENÚ</a></li>
+            <li><a href="#promociones">PROMOCIONES</a></li>
+            <li><a href="#nosotros">NOSOTROS</a></li>
+            <li><a href="#franquicias">FRANQUICIAS</a></li>
         </ul>
-        <a href="#" class="nav-cta">CONOCE LAS PROMOS 🔥</a>
+        <a href="#promociones" class="nav-cta">CONOCE LAS PROMOS 🔥</a>
     </nav>
 
     <section class="hero-carousel">
@@ -549,7 +450,7 @@
         </div>
     </section>
 
-    <section class="menu-section">
+    <section class="menu-section" id="menu">
         <img src="Capa 3.png" alt="Tuti Walker" class="tuti-walker">
         <div class="menu-header">
             <h2 class="big-title">LOS INEVITABLES<br>DE HOT ROLLS</h2>
@@ -557,33 +458,67 @@
         </div>
         <div class="menu-grid">
             <div class="menu-item">
-                <img src="Gemini_Generated_Image_osbzmuosbzmuosbz.jpg" alt="Volumen Rock" style="mix-blend-mode: multiply; border-radius: 15px;">
+                <img src="peperonni1.jpg" alt="Volumen Rock" style="mix-blend-mode: multiply; border-radius: 15px;">
                 <h4 class="script-subtitle">El clásico de canela</h4>
                 <h3 class="item-title">VOLUMEN ROCK</h3>
-                <p class="item-desc">Masa artesanal horneada con el toque perfecto de canela y glaseado. El inicio de todo.</p>
-                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+                <p class="item-desc">Masa artesanal horneada con el toque perfecto de pepperoni y queso. El inicio de todo.</p>
+                <a href="#menu" class="item-btn">CONOCE NUESTRO MENÚ</a>
             </div>
             <div class="menu-item">
-                <img src="hotrolls2.jpg" alt="Chakaton Style" style="border-radius: 15px;">
+                <img src="Mix.jpg" alt="Chakaton Style" style="border-radius: 15px;">
                 <h4 class="script-subtitle">Salsa secreta del barrio</h4>
                 <h3 class="item-title">CHAKATÓN STYLE</h3>
                 <p class="item-desc">Relleno contundente, bañado en nuestra salsa secreta que mezcla lo mejor del mundo urbano.</p>
-                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+                <a href="#menu" class="item-btn">CONOCE NUESTRO MENÚ</a>
             </div>
             <div class="menu-item">
-                <img src="quesoso.jpg" alt="Tumbado Roll" style="border-radius: 15px;">
+                <img src="quesosyespecias.jpg" alt="Tumbado Roll" style="border-radius: 15px;">
                 <h4 class="script-subtitle">Crujiente por fuera</h4>
                 <h3 class="item-title">TUMBADO ROLL</h3>
                 <p class="item-desc">Costra de queso crujiente y un interior suave que se derrite. Una experiencia bélica de sabor.</p>
-                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+                <a href="#menu" class="item-btn">CONOCE NUESTRO MENÚ</a>
             </div>
             <div class="menu-item">
-                <img src="mochoso.jpg" alt="Jauria Crunch" style="border-radius: 15px;">
+                <img src="jamonyqueso.jpg" alt="Jauria Crunch" style="border-radius: 15px;">
                 <h4 class="script-subtitle">Topping extremo</h4>
                 <h3 class="item-title">JAURIA CRUNCH</h3>
                 <p class="item-desc">Para los que no tienen límites. Extra proteína y una lluvia de texturas crujientes irresistibles.</p>
-                <a href="#" class="item-btn">CONOCE NUESTRO MENÚ</a>
+                <a href="#menu" class="item-btn">CONOCE NUESTRO MENÚ</a>
             </div>
+        </div>
+    </section>
+
+    <section class="promo-section" id="promociones">
+        <div class="promo-header">
+            <h2 class="big-title">COMBOS IMPERDIBLES</h2>
+            <p style="font-family: 'Lexend'; font-weight: 700; font-size: 1.2rem; margin-top: 10px;">LO MEJOR DE LA CALLE, A MEJOR PRECIO.</p>
+        </div>
+        
+        <div class="promo-grid">
+            <div class="promo-card">
+                <div class="promo-price">$199</div>
+                <h3>EL GODÍN</h3>
+                <p>2 Volumen Rock + 2 Cafés Americanos. Ideal para sobrevivir a las juntas de la oficina sin perder el estilo.</p>
+                <a href="#promociones" class="item-btn" style="background-color: var(--hr-yellow); color: var(--hr-black); padding: 10px 20px; font-size: 1.1rem;">¡LO QUIERO!</a>
+            </div>
+            
+            <div class="promo-card">
+                <div class="promo-price">$349</div>
+                <h3>JAURÍA PACK</h3>
+                <p>4 Rolls a elegir (clásicos o especiales) + 4 bebidas. Perfecto para caerle al barrio o compartir con la clica.</p>
+                <a href="#promociones" class="item-btn" style="background-color: var(--hr-green); color: var(--hr-black); padding: 10px 20px; font-size: 1.1rem;">¡LO QUIERO!</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="nosotros">
+        <div class="about-text">
+            <h2 class="big-title">DE LA CALLE<br>AL HORNO</h2>
+            <p>Nacimos de la necesidad de romper las reglas. Estábamos cansados de los postres aburridos, sin actitud y sin sabor. Por eso creamos <span class="highlight">Hot Rolls</span>: una fusión de masa artesanal, recetas secretas y pura cultura urbana.</p>
+            <p>No somos solo una repostería, somos el soundtrack de tus tardes, el premio después de un día pesado y la excusa perfecta para juntarte con los tuyos. Nuestro compromiso es simple: <span class="highlight">ingredientes reales, texturas que detonan y 100% actitud.</span></p>
+        </div>
+        <div class="about-image-wrapper">
+            <img src="nosotros.jpg" alt="Nuestro Equipo" class="about-img">
         </div>
     </section>
 
@@ -600,11 +535,11 @@
                 <span class="text-black">UN BUEN ROLL</span> <br>
                 ESTÁ EN EL RELLENO
             </h2>
-            <p>DESCUBRE NUESTRAS COMBINACIONES BÉLICAS</p>
+            <p>DESCUBRE NUESTRAS COMBINACIONES ÉPICAS</p>
         </div>
     </section>
 
-    <section class="numbers-section">
+    <section class="numbers-section" id="franquicias">
         <div class="rollo-image-container">
             <img src="roll.png" alt="Date un Roll">
         </div>
@@ -701,6 +636,7 @@
     <footer>
         <img src="Capa 5.png" alt="Tuti Mascot" class="tuti-footer">
         <div class="footer-logo big-title">HOT ROLLS</div>
+        <a href="index.html" style="color: var(--hr-yellow); font-family: 'Lexend'; font-weight: 700; text-decoration: none; display: block; margin-top: 10px; text-transform: uppercase;">&larr; Volver a la página principal</a>
         <p style="margin-top: 20px; font-size: 0.85rem; color: #888;">© 2026 HOT ROLLS. TODOS LOS DERECHOS RESERVADOS. OPERADO POR MANGO BUSINESS CENTER.</p>
     </footer>
 
