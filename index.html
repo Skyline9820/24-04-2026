@@ -96,8 +96,8 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 30px rgba(253, 234, 20, 0.6)); } }
 
         /* =========================================================
-           NAVEGACIÓN EFECTO CRISTAL Y DROPDOWN
-           ========================================================= */
+            NAVEGACIÓN EFECTO CRISTAL Y DROPDOWN
+            ========================================================= */
         nav {
             position: fixed; 
             width: 90%; 
@@ -683,7 +683,12 @@
                     <a href="distribuidores.html" role="menuitem">Nanná</a>
                 </div>
             </div>
-            <a href="Franquicias.html" class="nav-item">Franquicias</a>
+            <div class="dropdown">
+                <a href="#" class="nav-item dropdown-toggle" aria-haspopup="true" aria-expanded="false">Franquicias ▾</a>
+                <div class="dropdown-menu" role="menu">
+                    <a href="Franquicias.html" role="menuitem">Hot Rolls</a>
+                </div>
+            </div>
             <a href="#talento" class="nav-cta nav-item">JOBS</a>
         </div>
     </nav>
@@ -1232,18 +1237,20 @@
             });
         });
 
-        const dropdown = document.querySelector('.dropdown');
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        if (dropdownToggle) {
-            dropdownToggle.addEventListener('click', (e) => {
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
                 if (window.innerWidth <= 992) {
                     e.preventDefault(); 
-                    dropdown.classList.toggle('active');
-                    const expanded = dropdown.classList.contains('active');
-                    dropdownToggle.setAttribute('aria-expanded', expanded);
+                    // Encuentra el menú desplegable específico al que se le hizo clic
+                    const currentDropdown = toggle.closest('.dropdown');
+                    currentDropdown.classList.toggle('active');
+                    const expanded = currentDropdown.classList.contains('active');
+                    toggle.setAttribute('aria-expanded', expanded);
                 }
             });
-        }
+        });
 
         let countersAnimated = false;
         function startCounters() {
@@ -1455,4 +1462,4 @@
         
     </script>
 </body>
-</html> 
+</html>
